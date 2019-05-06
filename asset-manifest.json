@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/githubfavorite/static/js/main.c7d0f000.chunk.js",
-    "main.js.map": "/githubfavorite/static/js/main.c7d0f000.chunk.js.map",
+    "main.js": "/githubfavorite/static/js/main.3358f920.chunk.js",
+    "main.js.map": "/githubfavorite/static/js/main.3358f920.chunk.js.map",
     "runtime~main.js": "/githubfavorite/static/js/runtime~main.a3b7e6b2.js",
     "runtime~main.js.map": "/githubfavorite/static/js/runtime~main.a3b7e6b2.js.map",
     "static/css/2.a1ff9b9e.chunk.css": "/githubfavorite/static/css/2.a1ff9b9e.chunk.css",
     "static/js/2.5bd80fd4.chunk.js": "/githubfavorite/static/js/2.5bd80fd4.chunk.js",
     "static/js/2.5bd80fd4.chunk.js.map": "/githubfavorite/static/js/2.5bd80fd4.chunk.js.map",
     "index.html": "/githubfavorite/index.html",
-    "precache-manifest.4807b0469cf711432e4e57b6eed2c759.js": "/githubfavorite/precache-manifest.4807b0469cf711432e4e57b6eed2c759.js",
+    "precache-manifest.6c6c7b0893c440140c66ec0dd5a94ed9.js": "/githubfavorite/precache-manifest.6c6c7b0893c440140c66ec0dd5a94ed9.js",
     "service-worker.js": "/githubfavorite/service-worker.js",
     "static/css/2.a1ff9b9e.chunk.css.map": "/githubfavorite/static/css/2.a1ff9b9e.chunk.css.map",
     "static/media/font-awesome.css": "/githubfavorite/static/media/fontawesome-webfont.fee66e71.woff"
