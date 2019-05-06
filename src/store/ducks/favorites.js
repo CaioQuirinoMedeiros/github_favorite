@@ -53,7 +53,8 @@ export default function favorites(state = INITIAL_STATE, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.error
+        error: action.payload.error,
+        pages: []
       };
     case Types.ADD_SUCCESS:
       localStorage.setItem(
