@@ -35,7 +35,7 @@ class Main extends Component {
 
   handleSearchRepository = event => {
     event.preventDefault();
-    this.props.searchRequest(this.state.repositoryInput, this.state.page);
+    this.props.searchRequest(this.state.repositoryInput, 1);
     this.setState({ repository: this.state.repositoryInput });
     this.setState({ repositoryInput: "" });
   };
