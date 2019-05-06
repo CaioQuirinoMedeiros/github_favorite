@@ -22,7 +22,10 @@ export const Container = styled.div`
     padding: 15px 30px;
   }
 
-  a {
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
     text-decoration: none;
     color: #63f5b0;
     font-weight: bold;

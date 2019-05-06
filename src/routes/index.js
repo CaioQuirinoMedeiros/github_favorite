@@ -1,21 +1,29 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+
+import { connect } from "react-redux";
 
 import Main from "../pages/main";
 import Footer from "../components/Footer";
-import Header from '../components/Header';
+import Header from "../components/Header";
 
-const Routes = () => (
+const Routes = props => (
   <BrowserRouter>
     <>
       <Header />
-      <Switch>
-        <Route exact path="/" component={Main} />
-        <Route exact path="/favorites" component={Footer} />
-      </Switch>
+      {props.route === "main" ? <Main /> : <Footer />}
     </>
   </BrowserRouter>
 );
 
-export default Routes;
+Header.propTypes = {
+  route: PropTypes.string
+};
+
+const mapStateToProps = state => ({
+  route: state.favorites.route
+});
+
+export default connect(mapStateToProps)(Routes);

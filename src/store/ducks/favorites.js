@@ -9,7 +9,8 @@ export const Types = {
   ADD_REQUEST: "favorites/ADD_REQUEST",
   ADD_SUCCESS: "favorites/ADD_SUCCESS",
   ADD_FAILURE: "favorites/ADD_FAILURE",
-  REMOVE: "favorites/REMOVE"
+  REMOVE: "favorites/REMOVE",
+  ROUTE_CHANGE: "favorites/ROUTE_CHANGE"
 };
 
 /**
@@ -21,11 +22,14 @@ const INITIAL_STATE = {
   page: 1,
   pages: [],
   favorites: JSON.parse(localStorage.getItem("favoritesRepos")) || [],
-  error: null
+  error: null,
+  route: 'main'
 };
 
 export default function favorites(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case Types.ROUTE_CHANGE:
+      return { ...state, route: action.payload.route}
     case Types.SEARCH_REQUEST:
       return { ...state, loading: true, data: [] };
     case Types.PAGE_SUCCESS:
@@ -82,6 +86,11 @@ export default function favorites(state = INITIAL_STATE, action) {
  */
 
 export const Creators = {
+  routeChange: route => ({
+    type: Types.ROUTE_CHANGE,
+    payload: { route }
+  }),
+
   searchRequest: (user, page) => ({
     type: Types.SEARCH_REQUEST,
     payload: { user, page }
