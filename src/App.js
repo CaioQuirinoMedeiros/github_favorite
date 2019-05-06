@@ -8,8 +8,6 @@ import store from './store';
 
 import Routes from './routes';
 
-console.tron.log('testando');
-
 const App = () => (
   <Provider store={store}>
     <GlobalStyle />
