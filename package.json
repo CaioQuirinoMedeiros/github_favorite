@@ -1,10 +1,11 @@
 {
-  "name": "gitfavorite",
+  "name": "github_favorite",
   "version": "0.1.0",
   "private": true,
+  "author": "Caio Quirino",
   "homepage": "https://caioquirinomedeiros.github.io/githubfavorite",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "font-awesome": "^4.7.0",
     "gh-pages": "^2.0.1",
     "moment": "^2.24.0",
