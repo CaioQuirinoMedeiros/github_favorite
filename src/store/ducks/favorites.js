@@ -2,81 +2,54 @@
  * Types
  */
 export const Types = {
-  SEARCH_REQUEST: "favorites/SEARCH_REQUEST",
-  PAGE_SUCCESS: "favorites/PAGE_SUCCESS",
-  SEARCH_SUCCESS: "favorites/SEARCH_SUCCESS",
-  SEARCH_FAILURE: "favorites/SEARCH_FAILURE",
   ADD_REQUEST: "favorites/ADD_REQUEST",
   ADD_SUCCESS: "favorites/ADD_SUCCESS",
-  ADD_FAILURE: "favorites/ADD_FAILURE",
-  REMOVE: "favorites/REMOVE",
-  ROUTE_CHANGE: "favorites/ROUTE_CHANGE"
+  ATT_SUCCESS: "favorites/ATT_SUCCESS",
+  REMOVE: "favorites/REMOVE"
 };
 
 /**
  * Reducer
  */
 const INITIAL_STATE = {
-  loading: false,
-  data: [],
-  page: 1,
-  pages: [],
-  favorites: JSON.parse(localStorage.getItem("favoritesRepos")) || [],
-  error: null,
-  route: 'main'
+  data: JSON.parse(localStorage.getItem("@github_favorite:favorites")) || []
 };
 
 export default function favorites(state = INITIAL_STATE, action) {
+  let newFavorites;
+  const saveToStorage = data =>
+    localStorage.setItem(
+      "@github_favorite:favorites",
+      JSON.stringify([...data])
+    );
+
   switch (action.type) {
-    case Types.ROUTE_CHANGE:
-      return { ...state, route: action.payload.route}
-    case Types.SEARCH_REQUEST:
-      return { ...state, loading: true, data: [] };
-    case Types.PAGE_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        page: action.payload.page,
-        data: [...action.payload.repos],
-        error: null
-      };
-    case Types.SEARCH_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        page: 1,
-        pages: [...action.payload.pages],
-        data: [...action.payload.repos],
-        error: null
-      };
-    case Types.SEARCH_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload.error,
-        pages: []
-      };
     case Types.ADD_SUCCESS:
-      localStorage.setItem(
-        "favoritesRepos",
-        JSON.stringify([...state.favorites, action.payload.repo])
-      );
+      newFavorites = [...state.data, action.payload.repository];
+
+      saveToStorage(newFavorites);
+
       return {
         ...state,
-        loading: false,
-        favorites: [...state.favorites, action.payload.repo],
-        error: null
+        data: [...newFavorites]
       };
-    case Types.ADD_FAILURE:
-      return { ...state, loading: false, error: action.payload.error };
+
     case Types.REMOVE:
-      const newFavorites = state.favorites;
-      newFavorites.splice(
-        state.favorites.findIndex(fav => fav.id === action.payload.id),
-        1
+      newFavorites = state.data.filter(repo => repo.id !== action.payload.id);
+
+      saveToStorage(newFavorites);
+
+      return { ...state, data: [...newFavorites] };
+    case Types.ATT_SUCCESS:
+      const newRepo = action.payload.repository;
+
+      newFavorites = state.data.map(repo =>
+        repo.id === newRepo.id ? newRepo : repo
       );
-      localStorage.setItem("favoritesRepos", JSON.stringify([...newFavorites]));
-      return { ...state, favorites: [...newFavorites] };
+
+      saveToStorage(newFavorites);
+
+      return { ...state, data: [...newFavorites] };
     default:
       return state;
   }
@@ -87,44 +60,19 @@ export default function favorites(state = INITIAL_STATE, action) {
  */
 
 export const Creators = {
-  routeChange: route => ({
-    type: Types.ROUTE_CHANGE,
-    payload: { route }
-  }),
-
-  searchRequest: (user, page) => ({
-    type: Types.SEARCH_REQUEST,
-    payload: { user, page }
-  }),
-
-  pageSuccess: (repos, page) => ({
-    type: Types.PAGE_SUCCESS,
-    payload: { repos, page }
-  }),
-
-  searchSuccess: (repos, pages) => ({
-    type: Types.SEARCH_SUCCESS,
-    payload: { repos, pages }
-  }),
-
-  searchFailure: error => ({
-    type: Types.SEARCH_FAILURE,
-    payload: { error }
-  }),
-
-  addFavoriteRequest: repository => ({
+  addFavoriteRequest: (repository, refreshing) => ({
     type: Types.ADD_REQUEST,
+    payload: { repository, refreshing }
+  }),
+
+  addFavoriteSuccess: repository => ({
+    type: Types.ADD_SUCCESS,
     payload: { repository }
   }),
 
-  addFavoriteSuccess: repo => ({
-    type: Types.ADD_SUCCESS,
-    payload: { repo }
-  }),
-
-  addFavoriteFailure: error => ({
-    type: Types.ADD_FAILURE,
-    payload: { error }
+  attFavoriteSuccess: repository => ({
+    type: Types.ATT_SUCCESS,
+    payload: { repository }
   }),
 
   removeFavorite: id => ({

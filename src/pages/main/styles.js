@@ -1,134 +1,131 @@
 import styled from "styled-components";
 
-export const Form = styled.form`
-  margin-top: 20px;
+export const Container = styled.div`
   width: 100%;
+  padding: 15px 60px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  padding: 0 10%;
-  position: relative;
+  align-items: center;
+  background: #273a47;
+`;
+
+export const Form = styled.form`
+  width: 70%;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
 
   .wrapper-row {
     width: 100%;
     display: flex;
-    flex-direction: row;
   }
 
   input {
+    font-family: inherit;
     flex: 1;
     height: 55px;
     padding: 0 20px;
     background: #fff;
-    border: none;
-    margin: 5px 10px;
+    border: 2px solid transparent;
+    margin: 10px;
     font-size: 18px;
     color: #333;
     border-radius: 3px;
 
-    border: ${props => (props.withError ? "2px solid #f00" : "none")};
+    border: ${props => (props.error ? "2px solid #f00" : "none")};
   }
 
   button {
-    width: 120px;
+    width: 100px;
     height: 55px;
-    padding: 0 20px;
-    margin: 5px 10px;
-    background: #63f5b0;
+    padding: 0 15px;
+    margin: 10px;
+    background: #52d89f;
     color: #fff;
     border: none;
     font-size: 20px;
-    font-weight: bold;
     border-radius: 3px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: background 0.3s;
 
     &:hover {
-      background: #52d89f;
+      background: #40c68c;
     }
   }
 
   span {
-    padding: 10px 0 0 10px;
-    color: #fff;
-    font-size: 120%;
+    margin: 5px 10px;
+    color: #f00;
     font-weight: 500;
   }
 `;
 
-export const Pagination = styled.ul`
+export const Pagination = styled.div`
+  width: 70%;
+  min-width: 500px;
+  height: 60px;
   display: flex;
-  justify-content: center;
-  padding: 20px;
-  list-style: none;
+  justify-content: space-between;
+  align-items: center;
 
-  li {
-    padding: 0 10px;
+  div {
+    display: flex;
+  }
 
-    button {
-      height: 35px;
-      width: 35px;
-      border-radius: 50%;
-      outline: none;
-      border: none;
-      background: none;
-      font-size: 130%;
-      font-weight: bold;
-      color: #63f5b0;
-      cursor: pointer;
-    }
-
-    .active {
-      background-color: #52d89f;
-      color: #fff;
-    }
+  button {
+    margin: 5px 10px;
+    height: 35px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    background: none;
+    font-size: 130%;
+    font-weight: bold;
+    color: #63f5b0;
+    cursor: pointer;
   }
 `;
 
 export const Lista = styled.ul`
+  width: 70%;
+  min-width: 500px;
   display: flex;
   flex-direction: column;
-  padding: 0 10%;
   color: #222;
-
-  .wrapper-row {
-    display: flex;
-    flex-direction: row;
-    margin-left: 15px;
-  }
-  .wrapper-column {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-
-    p {
-      padding: 8px 0;
-    }
-  }
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   li {
-    height: 80px;
-    padding: 8px;
+    padding: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 3px;
     margin: 5px 10px;
-    background: #fff;
-  }
+    background: #f7f7f7;
 
-  li a,
-  li button {
-    background: none;
-    cursor: pointer;
-    border: none;
-    border-radius: 3px;
-    text-decoration: none;
-    outline: none;
-    padding: 3px;
-    margin: 0 3px;
-    color: #222;
-    font-size: 100%;
+    strong {
+    }
+
+    & .wrapper-row {
+      display: flex;
+      flex-direction: row;
+      margin-left: 15px;
+    }
+
+    & a,
+    & button {
+      background: none;
+      cursor: pointer;
+      border: none;
+      border-radius: 3px;
+      text-decoration: none;
+      outline: none;
+      margin-left: 20px;
+      color: #222;
+      font-size: 100%;
+    }
   }
 `;

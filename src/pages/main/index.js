@@ -1,124 +1,187 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
-import { Form, Pagination, Lista } from "./styles";
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+
+import api from "../../services/api";
+
+import { Form, Container, Lista, Pagination } from "./styles";
+
 import { Creators as FavoriteActions } from "../../store/ducks/favorites";
 
 class Main extends Component {
   static propTypes = {
-    pages: PropTypes.arrayOf(PropTypes.number),
-    page: PropTypes.number,
-    addFavoriteRequest: PropTypes.func,
-    searchRequest: PropTypes.func.isRequired,
-    data: PropTypes.shape({
-      loading: PropTypes.bool,
-      data: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          name: PropTypes.string,
-          description: PropTypes.string,
-          url: PropTypes.string
-        })
-      ).isRequired,
-      error: PropTypes.string
-    })
+    addFavoriteRequest: PropTypes.func.isRequired,
+    removeFavorite: PropTypes.func.isRequired,
+    favorites: PropTypes.arrayOf(PropTypes.number).isRequired
   };
 
   state = {
-    repositoryInput: "",
-    repository: "",
-    page: 1
+    user: "",
+    data: [],
+    loading: false,
+    error: "",
+    pages: {}
   };
 
-  handleSearchRepository = event => {
-    event.preventDefault();
-    this.props.searchRequest(this.state.repositoryInput, 1);
-    this.setState({ repository: this.state.repositoryInput });
-    this.setState({ repositoryInput: "" });
+  componentDidMount = async () => {
+    const user = JSON.parse(localStorage.getItem("@github_favorite:user"));
+
+    if (user) {
+      this.setState({ user }, () => this.handleSearchRepository());
+    }
   };
 
-  handleAddRepository = nameRepo => {
-    this.props.addFavoriteRequest(nameRepo);
+  handleInputChange = e => {
+    this.setState({ user: e.target.value, error: "" });
+  };
+
+  getPages = response => {
+    if (!response.headers.link) {
+      this.setState({ pages: {} });
+      return;
+    }
+
+    let pagesArr = response.headers.link.split(", ").map(page => ({
+      [page.split("; ")[1].split('"')[1]]: page.split("; ")[0].slice(-2, -1)
+    }));
+
+    let pages = {};
+
+    pagesArr.forEach(page => {
+      pages = { ...pages, ...page };
+    });
+
+    this.setState({ pages });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.handleSearchRepository();
+  };
+
+  handleSearchRepository = async (page = 1) => {
+    const { user } = this.state;
+
+    try {
+      this.setState({ loading: true });
+
+      const response = await api.get(`users/${user}/repos?page=${page}`);
+
+      this.getPages(response);
+
+      const data = response.data.map(repo => ({
+        full_name: repo.full_name,
+        id: repo.id,
+        name: repo.name,
+        url: repo.html_url
+      }));
+
+      this.setState({
+        data: [...data],
+        error: ""
+      });
+
+      localStorage.setItem("@github_favorite:user", JSON.stringify(user));
+    } catch (err) {
+      console.log(err);
+
+      localStorage.removeItem("@github_favorite:user");
+
+      this.setState({
+        data: [],
+        pages: {},
+        error: "Ops! Não foi possível buscar os repositórios deste usuário"
+      });
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
+  handleStarClick = repo => {
+    const { favorites, removeFavorite, addFavoriteRequest } = this.props;
+
+    favorites.includes(repo.id)
+      ? removeFavorite(repo.id)
+      : addFavoriteRequest(repo.full_name, false);
   };
 
   render() {
+    const { data, loading, error, pages } = this.state;
+    const { favorites } = this.props;
+
     return (
-      <>
-        <Form
-          onSubmit={this.handleSearchRepository}
-          withError={this.props.favorites.error}
-        >
+      <Container>
+        <Form onSubmit={this.handleSubmit} error={!!error}>
           <div className="wrapper-row">
             <input
               placeholder="user"
-              value={this.state.repositoryInput}
-              onChange={e => this.setState({ repositoryInput: e.target.value })}
+              value={this.state.user}
+              onChange={this.handleInputChange}
             />
             <button type="submit">
-              {this.props.favorites.loading ? (
-                <i className="fa fa-spinner fa-pulse" />
-              ) : (
-                "Search"
-              )}
+              {loading ? <i className="fa fa-spinner fa-pulse" /> : "Search"}
             </button>
           </div>
 
-          {!!this.props.favorites.error && (
-            <span>{this.props.favorites.error}</span>
-          )}
+          {!!error && <span>{error}</span>}
         </Form>
+
         <Pagination>
-          {this.props.favorites.pages &&
-            this.props.favorites.pages.map(page => (
-              <li key={page}>
-                <button
-                  className={
-                    page === this.props.favorites.page ? "active" : undefined
-                  }
-                  onClick={() => {
-                    this.setState({ page });
-                    this.props.searchRequest(this.state.repository, page);
-                  }}
-                >
-                  {page}
-                </button>
-              </li>
-            ))}
+          <div>
+            {pages.first && (
+              <button onClick={() => this.handleSearchRepository(pages.first)}>
+                <i className="fa fa-angle-double-left" />
+              </button>
+            )}
+            {pages.prev && (
+              <button onClick={() => this.handleSearchRepository(pages.prev)}>
+                <i className="fa fa-angle-left" />
+              </button>
+            )}
+          </div>
+          <div>
+            {pages.next && (
+              <button onClick={() => this.handleSearchRepository(pages.next)}>
+                <i className="fa fa-angle-right" />
+              </button>
+            )}
+            {pages.last && (
+              <button onClick={() => this.handleSearchRepository(pages.last)}>
+                <i className="fa fa-angle-double-right" />
+              </button>
+            )}
+          </div>
         </Pagination>
+
         <Lista>
-          {this.props.favorites.data.map(fav => (
-            <li key={fav.id}>
-              <div className="wrapper-column">
-                <strong>{fav.name}</strong>
-                <p>{fav.description}</p>
-              </div>
+          {data.map(repo => (
+            <li key={repo.id}>
+              <strong>{repo.name}</strong>
+
               <div className="wrapper-row">
-                <a href={fav.url} target="_blank" rel="noopener noreferrer">
+                <a href={repo.url} target="_blank" rel="noopener noreferrer">
                   <i className="fa fa-external-link" />
                 </a>
-                {this.props.favorites.favorites.find(
-                  favorite => favorite.id === fav.id
-                ) ? (
-                  <></>
-                ) : (
-                  <button onClick={() => this.handleAddRepository(fav.name)}>
-                    <i className="fa fa-star" />
-                  </button>
-                )}
+
+                <button onClick={() => this.handleStarClick(repo)}>
+                  <i
+                    className="fa fa-star"
+                    style={favorites.includes(repo.id) ? { color: "gold" } : {}}
+                  />
+                </button>
               </div>
             </li>
           ))}
         </Lista>
-      </>
+      </Container>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  favorites: state.favorites
+  favorites: state.favorites.data.map(favorite => favorite.id)
 });
 
 const mapDispatchToProps = dispatch =>
