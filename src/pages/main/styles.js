@@ -126,6 +126,12 @@ export const Lista = styled.ul`
       margin-left: 20px;
       color: #222;
       font-size: 100%;
+      opacity: 1;
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 0.7;
+      }
     }
   }
 `;
