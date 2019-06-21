@@ -1,31 +1,31 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  text-align: center;
-  padding: 20px 0;
-
-  .wrapper-column {
-    display: inline-block;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #1a2730;
 
   h1 {
     color: #f5f5f5;
+    text-align: center;
     font-size: 250%;
-    display: inline;
+    flex: 5;
   }
 
-  .wrapper-row {
+  div {
+    flex: 3;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 15px 30px;
+    justify-content: flex-end;
+    justify-self: flex-end;
   }
 
-  button {
+  a {
     cursor: pointer;
-    background: none;
     border: none;
+    margin-left: 20px;
     text-decoration: none;
     color: #63f5b0;
     font-weight: bold;
@@ -36,5 +36,4 @@ export const Container = styled.div`
       opacity: 0.8;
     }
   }
-`
-
+`;

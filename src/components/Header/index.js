@@ -1,38 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { Creators as FavoriteActions } from "../../store/ducks/favorites";
 
 import { Container } from "./styles";
 
-import { connect } from "react-redux";
-
 const Header = props => {
   return (
     <Container>
-      <div className="wrapper-column">
-        <h1>GituHub Favorites</h1>
-        <div className="wrapper-row">
-          <button onClick={() => props.routeChange("main")}>Search</button>
-          <button onClick={() => props.routeChange("footer")}>
-            Favorites ({props.count})
-          </button>
-        </div>
+      <div />
+      <h1>GitHub Favorite</h1>
+      <div>
+        <Link to="/">Search</Link>
+        <Link to="/favorites">Favorites ({props.count})</Link>
       </div>
     </Container>
   );
 };
 
 Header.propTypes = {
-  count: PropTypes.number,
-  route: PropTypes.string
+  count: PropTypes.number
 };
 
 const mapStateToProps = state => ({
-  count: state.favorites.favorites.length,
-  route: state.favorites.route
+  count: state.favorites.data.length
 });
 
 const mapDispatchToProps = dispatch =>
