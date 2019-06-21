@@ -1,36 +1,65 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
+  padding: 15px 60px;
+  flex: 1;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+`;
 
-  margin-top: 20px;
+export const RepositoriesContainer = styled.div`
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LinkRepository = styled.a`
+  text-decoration: none;
+  color: inherit;
 `;
 
 export const Repository = styled.div`
-  width: 250px;
+  width: 280px;
   background: #fff;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
   margin: 10px;
   position: relative;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    opacity: 0.98;
+    transform: scale(1.01);
+  }
 
   header {
-    padding: 30px;
+    padding: 30px 30px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #1a2730;
 
     img {
-      width: 64px;
+      width: 84px;
     }
 
     strong {
-      font-size: 25px;
-      margin-top: 10px;
+      font-size: 18px;
+      height: 46px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      margin: 10px 0;
     }
 
     small {
@@ -40,20 +69,21 @@ export const Repository = styled.div`
 
     i {
       position: absolute;
-      top: 10px;
+      top: 0px;
       cursor: pointer;
+      padding: 10px 10px 15px;
       opacity: 1;
-      transition: opacity 0.2s;
+      transition: color 0.2s;
 
       &:hover {
-        opacity: 0.5;
+        color: #40c68c;
       }
 
       &:first-of-type {
-        right: 10px;
+        right: 0px;
       }
       &:last-of-type {
-        left: 10px;
+        left: 0px;
       }
     }
   }
