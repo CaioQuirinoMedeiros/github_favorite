@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Caio Quirino",
-  "homepage": "https://caioquirinomedeiros.github.io/githubfavorite",
+  "homepage": "https://caioquirinomedeiros.github.io/github_favorite",
   "dependencies": {
     "axios": "^0.18.1",
     "font-awesome": "^4.7.0",
