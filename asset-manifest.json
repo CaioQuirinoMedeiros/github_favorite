@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/github_favorite/static/js/main.9ef84b66.chunk.js",
-    "main.js.map": "/github_favorite/static/js/main.9ef84b66.chunk.js.map",
+    "main.js": "/github_favorite/static/js/main.5e1c3eb6.chunk.js",
+    "main.js.map": "/github_favorite/static/js/main.5e1c3eb6.chunk.js.map",
     "runtime~main.js": "/github_favorite/static/js/runtime~main.d463431d.js",
     "runtime~main.js.map": "/github_favorite/static/js/runtime~main.d463431d.js.map",
     "static/css/2.1618d323.chunk.css": "/github_favorite/static/css/2.1618d323.chunk.css",
-    "static/js/2.1112eeb5.chunk.js": "/github_favorite/static/js/2.1112eeb5.chunk.js",
-    "static/js/2.1112eeb5.chunk.js.map": "/github_favorite/static/js/2.1112eeb5.chunk.js.map",
+    "static/js/2.ef002b1c.chunk.js": "/github_favorite/static/js/2.ef002b1c.chunk.js",
+    "static/js/2.ef002b1c.chunk.js.map": "/github_favorite/static/js/2.ef002b1c.chunk.js.map",
     "index.html": "/github_favorite/index.html",
-    "precache-manifest.5cc876aec457a2c13fd2354c4dc50e58.js": "/github_favorite/precache-manifest.5cc876aec457a2c13fd2354c4dc50e58.js",
+    "precache-manifest.32a1ecd38d9dc271bb8b2066f5e1964f.js": "/github_favorite/precache-manifest.32a1ecd38d9dc271bb8b2066f5e1964f.js",
     "service-worker.js": "/github_favorite/service-worker.js",
     "static/css/2.1618d323.chunk.css.map": "/github_favorite/static/css/2.1618d323.chunk.css.map",
     "static/media/font-awesome.css": "/github_favorite/static/media/fontawesome-webfont.fee66e71.woff"
