@@ -1,8 +1,8 @@
-import { call, put /* , select */ } from "redux-saga/effects";
-import api from "../../services/api";
-import moment from "moment";
+import { call, put /* , select */ } from 'redux-saga/effects';
+import moment from 'moment';
+import api from '../../services/api';
 
-import { Creators as FavoriteActions } from "../ducks/favorites";
+import { Creators as FavoriteActions } from '../ducks/favorites';
 
 export function* addFavorite({ payload }) {
   try {
@@ -19,10 +19,10 @@ export function* addFavorite({ payload }) {
       issues: data.open_issues,
       url: data.html_url,
       full_name: data.full_name,
-      lastCommit: moment(data.pushed_at).fromNow()
+      lastCommit: moment(data.pushed_at).fromNow(),
     };
 
-    payload.refreshing
+    return payload.refreshing
       ? yield put(FavoriteActions.attFavoriteSuccess(repoData))
       : yield put(FavoriteActions.addFavoriteSuccess(repoData));
   } catch (err) {
