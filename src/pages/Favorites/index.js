@@ -1,74 +1,53 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import {
-  Container,
-  Repository,
-  RepositoriesContainer,
-  LinkRepository
-} from "./styles";
+  Container, Repository, ButtonsWrapper, Button, Header, Infos, Info,
+} from './styles';
 
-import { Creators as favoriteActions } from "../../store/ducks/favorites";
+import { Creators as favoriteActions } from '../../store/ducks/favorites';
 
-class Favorites extends Component {
-  state = {
-    data: [],
-    loading: false,
-    error: false
-  };
-
-  render() {
-    const { favorites, removeFavorite, addFavoriteRequest } = this.props;
-
-    return (
-      <Container>
-        <RepositoriesContainer>
-          {favorites.map(repo => (
-            <LinkRepository key={repo.id} href={repo.url} target="_blank">
-              <Repository id={repo.id}>
-                <header>
-                  <img src={repo.img} alt={repo.owner} />
-                  <strong>{repo.name}</strong>
-                  <small>{repo.owner}</small>
-                  <i
-                    className="fa fa-close"
-                    onClick={e => {
-                      e.preventDefault();
-                      removeFavorite(repo.id);
-                    }}
-                  />
-                  <i
-                    className="fa fa-undo"
-                    onClick={e => {
-                      e.preventDefault();
-                      addFavoriteRequest(repo.full_name, true);
-                    }}
-                  />
-                </header>
-                <ul>
-                  <li>
-                    {repo.stars} <small>stars</small>
-                  </li>
-                  <li>
-                    {repo.forks} <small>forks</small>
-                  </li>
-                  <li>
-                    {repo.issues} <small>issues</small>
-                  </li>
-                  <li>
-                    {repo.lastCommit} <small>last commit</small>
-                  </li>
-                </ul>
-              </Repository>
-            </LinkRepository>
-          ))}
-        </RepositoriesContainer>
-      </Container>
-    );
-  }
-}
+const Favorites = ({ favorites, removeFavorite, addFavoriteRequest }) => (
+  <Container>
+    {favorites.map(repo => (
+      <Repository key={repo.id}>
+        <ButtonsWrapper>
+          <Button onClick={() => addFavoriteRequest(repo.full_name, true)}>
+            <i className="fa fa-undo" />
+          </Button>
+          <Button onClick={() => removeFavorite(repo.id)}>
+            <i className="fa fa-close" />
+          </Button>
+        </ButtonsWrapper>
+        <Header href={repo.url} target="_blank">
+          <img src={repo.img} alt={repo.owner} />
+          <strong>{repo.name}</strong>
+          <small>{repo.owner}</small>
+        </Header>
+        <Infos>
+          <Info>
+            <span>{repo.stars}</span>
+            <small>stars</small>
+          </Info>
+          <Info>
+            <span>{repo.forks}</span>
+            <small>forks</small>
+          </Info>
+          <Info>
+            <span>{repo.issues}</span>
+            <small>issues</small>
+          </Info>
+          <Info>
+            <span>{repo.lastCommit}</span>
+            <small>last commit</small>
+          </Info>
+        </Infos>
+      </Repository>
+    ))}
+  </Container>
+);
 
 Favorites.propTypes = {
   favorites: PropTypes.arrayOf(
@@ -81,19 +60,20 @@ Favorites.propTypes = {
       stars: PropTypes.number,
       forks: PropTypes.forks,
       issues: PropTypes.issues,
-      lastCommit: PropTypes.string
-    })
-  ).isRequired
+      lastCommit: PropTypes.string,
+    }),
+  ).isRequired,
+  removeFavorite: PropTypes.func.isRequired,
+  addFavoriteRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  favorites: state.favorites.data
+  favorites: state.favorites.data,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(favoriteActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(favoriteActions, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Favorites);

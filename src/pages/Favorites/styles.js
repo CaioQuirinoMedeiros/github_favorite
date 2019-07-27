@@ -1,109 +1,113 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
   padding: 15px 60px;
   flex: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
-`;
-
-export const RepositoriesContainer = styled.div`
-  width: 100%;
-  flex: 1;
-  display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-`;
+  overflow-y: scroll;
 
-export const LinkRepository = styled.a`
-  text-decoration: none;
-  color: inherit;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #40c68c;
+    outline: 1px solid slategrey;
+  }
 `;
 
 export const Repository = styled.div`
   width: 280px;
-  background: #fff;
-  border-radius: 3px;
   display: flex;
   flex-direction: column;
   margin: 10px;
-  position: relative;
-  cursor: pointer;
+  flex-shrink: 0;
+
+  background: #fff;
+  border-radius: 3px;
   transition: all 0.15s;
 
   &:hover {
-    opacity: 0.98;
     transform: scale(1.01);
   }
+`;
 
-  header {
-    padding: 30px 30px 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #1a2730;
+export const ButtonsWrapper = styled.div`
+  padding: 8px 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-    img {
-      width: 84px;
-    }
+export const Button = styled.button.attrs({ type: 'button' })`
+  i {
+    transition: color 0.2s;
+    font-size: 110%;
 
-    strong {
-      font-size: 18px;
-      height: 46px;
-      width: 100%;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      overflow: hidden;
-      margin: 10px 0;
-    }
-
-    small {
-      font-size: 14px;
-      color: #555;
-    }
-
-    i {
-      position: absolute;
-      top: 0px;
-      cursor: pointer;
-      padding: 10px 10px 15px;
-      opacity: 1;
-      transition: color 0.2s;
-
-      &:hover {
-        color: #40c68c;
-      }
-
-      &:first-of-type {
-        right: 0px;
-      }
-      &:last-of-type {
-        left: 0px;
-      }
+    &:hover {
+      color: #40c68c;
     }
   }
+`;
 
-  ul {
-    list-style: none;
+export const Header = styled.a`
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #1a2730;
 
-    li {
-      font-weight: bold;
-      padding: 12px 20px;
+  img {
+    width: 60px;
+  }
 
-      small {
-        font-weight: normal;
-        font-size: 12px;
-        color: #999;
-        font-style: italic;
-      }
-      &:nth-child(2n - 1) {
-        background: #f5f5f5;
-      }
-    }
+  strong {
+    font-size: 18px;
+    height: 46px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  small {
+    font-size: 14px;
+    color: #555;
+  }
+`;
+
+export const Infos = styled.ul`
+  list-style: none;
+  padding: 20px 0 0;
+`;
+
+export const Info = styled.li`
+  padding: 10px 20px;
+
+  &:nth-child(2n - 1) {
+    background: #f5f5f5;
+  }
+
+  span {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  small {
+    font-size: 12px;
+    color: #999;
+    font-style: italic;
   }
 `;
