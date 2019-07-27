@@ -1,38 +1,31 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import { Creators as FavoriteActions } from "../../store/ducks/favorites";
+import { Creators as FavoriteActions } from '../../store/ducks/favorites';
 
-import { Container } from "./styles";
+import { Container, Link } from './styles';
 
-const Header = props => {
-  return (
-    <Container>
-      <div />
-      <h1>GitHub Favorite</h1>
-      <div>
-        <Link to="/">Search</Link>
-        <Link to="/favorites">Favorites ({props.count})</Link>
-      </div>
-    </Container>
-  );
-};
+const Header = ({ count }) => (
+  <Container>
+    <Link to="/">Search</Link>
+    <h1>GitHub Favorite</h1>
+    <Link to="/favorites">{`Favorites (${count})`}</Link>
+  </Container>
+);
 
 Header.propTypes = {
-  count: PropTypes.number
+  count: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
-  count: state.favorites.data.length
+  count: state.favorites.data.length,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(FavoriteActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(FavoriteActions, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Header);

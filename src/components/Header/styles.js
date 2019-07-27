@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
   width: 100%;
@@ -10,30 +11,26 @@ export const Container = styled.div`
 
   h1 {
     color: #f5f5f5;
+    margin: 0 10px;
     text-align: center;
     font-size: 250%;
     flex: 5;
   }
+`;
 
-  div {
-    flex: 3;
-    display: flex;
-    justify-content: flex-end;
-    justify-self: flex-end;
+export const Link = styled(NavLink).attrs({
+  exact: true,
+})`
+  color: #63f5b0;
+  font-size: 120%;
+  opacity: 0.7;
+  transition: all 0.2s;
+
+  &:hover {
+    opacity: 1;
   }
 
-  a {
-    cursor: pointer;
-    border: none;
-    margin-left: 20px;
-    text-decoration: none;
-    color: #63f5b0;
-    font-weight: bold;
-    font-size: 120%;
-    transition: all 0.2s;
-
-    &:hover {
-      opacity: 0.8;
-    }
+  &.active {
+    opacity: 1;
   }
 `;
