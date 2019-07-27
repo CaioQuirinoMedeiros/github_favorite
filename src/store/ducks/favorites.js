@@ -37,7 +37,7 @@ export default function favorites(state = INITIAL_STATE, action) {
 
       return { ...state, data: [...newFavorites] };
     case Types.ATT_SUCCESS:
-      newRepo = action.payload.repository;
+      const newRepo = action.payload.repository;
 
       newFavorites = state.data.map(repo => (repo.id === newRepo.id ? newRepo : repo));
 
