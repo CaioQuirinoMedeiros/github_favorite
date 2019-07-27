@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
-import "font-awesome/css/font-awesome.css";
+import 'font-awesome/css/font-awesome.css';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -16,6 +16,8 @@ const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
     font-family: Arial, Helvetica, sans-serif;
+
+
   }
 
   #root {
@@ -26,6 +28,21 @@ const GlobalStyle = createGlobalStyle`
 
   .none {
     display: none;
+  }
+
+  button {
+    outline: none;
+    border: none;
+    background: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
