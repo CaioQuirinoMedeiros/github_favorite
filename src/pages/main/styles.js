@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -33,7 +33,7 @@ export const Form = styled.form`
     color: #333;
     border-radius: 3px;
 
-    border: ${props => (props.error ? "2px solid #f00" : "none")};
+    border: ${props => (props.error ? '2px solid #f00' : 'none')};
   }
 
   button {
@@ -97,6 +97,20 @@ export const Lista = styled.ul`
   overflow-y: auto;
   overflow-x: hidden;
 
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #40c68c;
+    outline: 1px solid slategrey;
+  }
+
   li {
     padding: 15px;
     display: flex;
@@ -106,28 +120,26 @@ export const Lista = styled.ul`
     margin: 5px 10px;
     background: #f7f7f7;
 
-    strong {
-    }
-
     & .wrapper-row {
       display: flex;
       flex-direction: row;
       margin-left: 15px;
     }
 
-    & a,
+    & a {
+      font-weight: bold;
+      transition: all 0.2s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
     & button {
-      background: none;
-      cursor: pointer;
-      border: none;
-      border-radius: 3px;
-      text-decoration: none;
-      outline: none;
       margin-left: 20px;
       color: #222;
       font-size: 100%;
-      opacity: 1;
-      transition: opacity 0.3s;
+      transition: opacity 0.2s;
 
       &:hover {
         opacity: 0.7;
@@ -135,3 +147,7 @@ export const Lista = styled.ul`
     }
   }
 `;
+
+export const Button = styled.button.attrs({
+  type: 'button',
+})``;
