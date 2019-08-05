@@ -8,7 +8,7 @@ import Favorites from '../pages/Favorites';
 import Header from '../components/Header';
 
 const Routes = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Header />
     <Switch>
       <Route exact path="/" component={Main} />
