@@ -1,8 +1,8 @@
 # GitHub Favorite
 
-Essa aplicação permite buscar os repositórios de um usuário do GitHub e salvar quantos quiser na aba Favoritos, onde mostra alguns detalhes do repositório.
+https://caioquirinomedeiros.github.io/github_favorite
 
-É uma aplicação front-end simples iniciada com [Create React App](https://github.com/facebook/create-react-app) e que consome a api do GitHub
+This web application consumes github's api to allow you to search repositories by user and save them as favorites so you can see more details.
 
 ## Available Scripts
 
